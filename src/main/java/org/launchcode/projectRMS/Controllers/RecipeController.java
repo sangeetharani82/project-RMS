@@ -118,11 +118,13 @@ public class RecipeController {
         edited.setIngredient(ingredient);
         edited.setDirection(direction);
 
+
         Course cor = courseDao.findOne(courseId);
         edited.setCourse(cor);
 
         Category cat = categoryDao.findOne(categoryId);
         edited.setCategory(cat);
+
         recipeDao.save(edited);
         return "redirect:/recipe";
     }

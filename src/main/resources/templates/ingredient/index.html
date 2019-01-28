@@ -9,7 +9,7 @@
     </div>
 
     <h5><a th:href="@{'/ingredient/add'}">Add an Ingredient</a></h5>
-    <p th:unless="${ingredients} and ${ingredients.size()}">no courses :-(</p>
+    <p th:unless="${ingredients} and ${ingredients.size()}">no ingredients :-(</p>
 
     <table class="table">
         <tr th:each="ingredient : ${ingredients}">
