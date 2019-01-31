@@ -1,10 +1,13 @@
 package org.launchcode.projectRMS.models;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Time;
 
 @Entity
 public class Recipe {
@@ -22,21 +25,21 @@ public class Recipe {
     @ManyToOne
     private Category category;
 
-//    @ManyToOne
-//    private IngredientAndQuantity ingredientAndQuantity;
-
     @NotNull
     private int servingSize;
+
     @NotNull
-    private String prepTime;
+    private String  prepTime;
+
     @NotNull
     private String cookTime;
 
     @NotNull
+    @Size(min=3, max = 300000)
     private String ingredient;
 
     @NotNull
-    @Size(min = 3, message = "Direction field should not be empty")
+    @Size(min=3, max = 3000000)
     private String direction;
 
     public Recipe(String recipeName, int servingSize, String prepTime, String cookTime,
@@ -121,11 +124,4 @@ public class Recipe {
         this.ingredient = ingredient;
     }
 
-    //    public IngredientAndQuantity getIngredientAndQuantity() {
-//        return ingredientAndQuantity;
-//    }
-//
-//    public void setIngredientAndQuantity(IngredientAndQuantity ingredientAndQuantity) {
-//        this.ingredientAndQuantity = ingredientAndQuantity;
-//    }
 }

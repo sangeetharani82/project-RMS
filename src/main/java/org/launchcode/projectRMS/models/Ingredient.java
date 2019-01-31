@@ -1,10 +1,9 @@
 package org.launchcode.projectRMS.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Ingredient {
@@ -15,7 +14,6 @@ public class Ingredient {
     @NotNull
     @Size(min=3, max=15)
     private String ingredientName;
-
 
     public Ingredient(){}
 
@@ -34,4 +32,5 @@ public class Ingredient {
     public void setIngredientName(String ingredientName) {
         this.ingredientName = ingredientName;
     }
+
 }

@@ -14,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Time;
 import java.util.List;
 
 @Controller
@@ -76,6 +77,7 @@ public class RecipeController {
         model.addAttribute("recipe", recipe);
         return "recipe/single";
     }
+//updated recipe-keeper project till this
 
     //delete a recipe
     @RequestMapping(value="remove", method = RequestMethod.GET)
@@ -86,9 +88,11 @@ public class RecipeController {
     }
 
     @RequestMapping(value="remove", method = RequestMethod.POST)
-    public String processRemoveRecipeForm(@RequestParam int[] recipeIds){
+    public String processRemoveRecipeForm(@RequestParam(defaultValue = "-1") int[] recipeIds){
         for (int recipeId : recipeIds){
-            recipeDao.delete(recipeId);
+            if (recipeId != -1) {
+                recipeDao.delete(recipeId);
+            }
         }
         return "redirect:";
     }

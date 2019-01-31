@@ -6,7 +6,7 @@
         <title th:text="${title}">My Recipes</title></div>
 
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
 </head>
 <body>
 
@@ -22,6 +22,14 @@
             <a href="/user/add">Sign-up</a>
             <a href="/user/login">User Login</a>
         </div>
+    </div>
+
+</nav>
+
+<nav th:fragment="navigation">
+    <div class="sidenav">
+        <a href="/recipe/add">Add Recipe</a>
+        <a href="/recipe/remove">Delete Recipe(s)</a>
     </div>
 
 </nav>
