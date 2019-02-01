@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+<div class="content">
+    <div class="header">
+        <h1 th:text="${title}">Default title</h1>
+    </div>
+
+
+    <p th:unless="${users} and ${users.size()}">no users :-(</p>
+    <table class="table">
+        <tr th:each="user : ${users}">
+        <tr>
+            <td><a th:href="@{'/user/view/' + ${user.id}}"
+                   th:text="${user.firstName} + ' ' + ${user.lastName}"
+                   th:id="${user.id}"></a></td>
+        </tr>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

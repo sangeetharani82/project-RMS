@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+<div class="content">
+    <div class="header">
+        <h2 th:text="${title}">Default title</h2>
+    </div>
+    <div class="rows">
+        <div class="column side" style="background-color:#ccc;">
+            <form method="post" style="max-width:500px;" th:object="${user}">
+                <div class="row">
+                    <div class="col-25">
+                        <label th:for="firstName">First Name</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" th:field="*{firstName}" placeholder="Enter your first name"/>
+                    </div>
+                    <span th:errors="*{firstName}" class="error"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label th:for="lastName">Last Name</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" th:field="*{lastName}" placeholder="Enter your last name"/>
+                    </div>
+                    <span th:errors="*{lastName}" class="error"></span>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label th:for="email">Email</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="email" th:field="*{email}" placeholder="Email"/>
+                    </div>
+                    <span th:errors="*{email}" class="error"></span>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label th:for="password">Password</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="password" th:field="*{password}" placeholder="Password"/>
+                    </div>
+                    <span th:errors="*{password}" class="error"></span>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label th:for="verify">Verify Password</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="password" th:field="*{verify}" placeholder="Re-type password"/>
+                    </div>
+                    <span th:errors="*{verify}" class="error"></span>
+
+                </div>
+
+                <div class="row">
+                    <input type="submit" value="Create User"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!--
+<h1 th:text="'Welcome'+${name}">Welcome</h1>
+-->
