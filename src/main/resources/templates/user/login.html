@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-
 <nav th:replace="fragments :: navigation"></nav>
 <div class="content">
     <div class="header">
@@ -10,31 +9,34 @@
     </div>
     <div class="rows">
         <div class="column side" style="background-color:#ccc;">
-            <form method="post" style="max-width:500px;" th:object="${course}" accept="image/gif,image/jpeg">
+            <form method="post" style="max-width:500px;">
                 <div class="row">
                     <div class="col-25">
-                        <label th:for="courseName">Title</label>
+                        <label th:for="email">Email</label>
                     </div>
                     <div class="col-75">
-                        <input th:field="*{courseName}" />
+                        <input type="email" placeholder="Email"/>
                     </div>
-                    <span th:errors="*{courseName}" class="error"></span>
                 </div>
-                <!--<div class="row">
+                <div class="row">
                     <div class="col-25">
-                        <label th:for="pic">Image</label>
+                        <label th:for="password">Password</label>
                     </div>
                     <div class="col-75">
-                        <input type="file" name="pic" id="pic"/>
+                        <input type="password" placeholder="Password"/>
                     </div>
-                </div>-->
+
+                </div>
+
                 <div class="row">
-                    <input type="submit" value="Create"/>
+                    <input type="submit" value="Login"/>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 </body>
 </html>
+<!--
+<h1 th:text="'Welcome'+${name}">Welcome</h1>
+-->

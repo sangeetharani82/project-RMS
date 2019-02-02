@@ -1,4 +1,5 @@
 package org.launchcode.projectRMS.models;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;

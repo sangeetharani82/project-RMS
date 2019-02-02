@@ -8,14 +8,13 @@
         <h1 th:text="${title}">Default title</h1>
     </div>
 
-    <p th:unless="${users} and ${users.size()}">no users :-(</p>
+
     <table class="table">
-        <tr th:each="user : ${users}">
         <tr>
-            <td><a th:href="@{'/user/view/' + ${user.id}}"
-                   th:text="${user.firstName} + ' ' + ${user.lastName}"
-                   th:id="${user.id}"></a></td>
-        </tr>
+            <td><a th:href="@{'/recipe/single/' + ${recipe.id}}"
+                   th:text="${recipes}"
+                   th:id="${recipe.id}"></a>
+            </td>
         </tr>
     </table>
 </div>

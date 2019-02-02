@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.sql.Time;
@@ -79,25 +80,33 @@ public class RecipeController {
     }
 //updated recipe-keeper project till this
 
-    //delete a recipe
-    @RequestMapping(value="remove", method = RequestMethod.GET)
-    public String displayRemoveRecipeForm(Model model){
-        model.addAttribute("recipes", recipeDao.findAll());
-        model.addAttribute("title", "Delete recipe(s)");
-        return "recipe/remove";
-    }
+//    //delete a recipe
+//    @RequestMapping(value="remove", method = RequestMethod.GET)
+//    public String displayRemoveRecipeForm(Model model){
+//        model.addAttribute("recipes", recipeDao.findAll());
+//        model.addAttribute("title", "Delete recipe(s)");
+//        return "recipe/remove";
+//    }
+//
+//    @RequestMapping(value="remove", method = RequestMethod.POST)
+//    public String processRemoveRecipeForm(@RequestParam(defaultValue = "-1") int[] recipeIds, Model model){
+//        for (int recipeId : recipeIds){
+//            if (recipeId != -1) {
+//                recipeDao.delete(recipeId);
+//                return "redirect:";
+//            }
+//        }
+//        model.addAttribute("recipes", recipeDao.findAll());
+//        model.addAttribute("title", "Delete recipe(s)");
+//        return "recipe/remove";
+//    }
 
-    @RequestMapping(value="remove", method = RequestMethod.POST)
-    public String processRemoveRecipeForm(@RequestParam(defaultValue = "-1") int[] recipeIds, Model model){
-        for (int recipeId : recipeIds){
-            if (recipeId != -1) {
-                recipeDao.delete(recipeId);
-                return "redirect:";
-            }
-        }
-        model.addAttribute("recipes", recipeDao.findAll());
-        model.addAttribute("title", "Delete recipe(s)");
-        return "recipe/remove";
+    // delete each recipe
+    @RequestMapping(value = "delete/{recipeId}")
+    public String delete(@PathVariable int recipeId, Model model){
+        recipeDao.delete(recipeId);
+        model.addAttribute("message", "Recipe was deleted");
+        return "redirect:/recipe";
     }
 
     //Edit a recipe
@@ -153,6 +162,12 @@ public class RecipeController {
         model.addAttribute("recipes", recipes);
         model.addAttribute("title", "Recipes in Category" + cat.getCategoryName());
         return "recipe/index";
+    }
+
+    @RequestMapping(value="search", method = RequestMethod.GET)
+    public String getRecipeNames(@RequestParam String searchTerm, Model model){
+        return "recipe/view";
+
     }
 }
 

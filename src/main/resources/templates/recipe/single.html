@@ -34,14 +34,7 @@
                 <th>CookTime</th>
                 <td th:text="${i.cookTime}"></td>
             </tr>
-            <!--<tr>
-                <th>Ingredients</th>
-                <th>Quantity</th>
-            </tr>
-            <tr>
-                <td th:text="${ingredient.name}"></td>
-                <td th:text="${ingredient.quantity}"></td>
-            </tr>-->
+
             <tr>
                 <th>Ingredient</th>
                 <td th:text="${i.ingredient}"></td>
@@ -52,11 +45,20 @@
             </tr>
         </table>
     </div>
-    <!--<h1></h1>
-    <h1></h1>
-    <h1></h1>
-    <h1></h1>
-    <a th:href="@{/recipe/rateAndComment/}">Rate and Comment here</a>-->
+    <div id="share-buttons">
+        <!-- Email -->
+        <a href="mailto:?Subject=Fried Rice&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://localhost:8080/recipe/single/4">
+            <img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
+        </a>
+        <!-- Facebook -->
+        <a href="http://www.facebook.com/sharer.php?u=https://simplesharebuttons.com" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+        </a>
+        <!-- Twitter -->
+        <a href="https://twitter.com/share?url=https://simplesharebuttons.com&amp;text=Simple%20Share%20Buttons&amp;hashtags=simplesharebuttons" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+        </a>
+    </div>
 
 </div>
 

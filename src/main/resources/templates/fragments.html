@@ -20,7 +20,7 @@
 
         <div class="righttopnav">
             <a href="/user/add">New User</a>
-            <a href="/user/login">User Login</a>
+            <a href="/user/login">Login</a>
         </div>
     </div>
 
@@ -29,7 +29,13 @@
 <nav th:fragment="navigation">
     <div class="sidenav">
         <a href="/recipe/add">Add Recipe</a>
-        <a href="/recipe/remove">Delete Recipe(s)</a>
+        <!--<a href="/recipe/remove">Delete Recipe(s)</a>-->
+        <div class="search-container">
+            <form action="">
+                <input name="searchTerm" type="text" placeholder="Search.." id="searchTerm"/>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 
 </nav>

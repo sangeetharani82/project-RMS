@@ -66,4 +66,10 @@ public class UserController {
         return "user/view";
     }
 
+    @RequestMapping(value="login", method = RequestMethod.GET)
+    public String displayLoginForm(Model model){
+        model.addAttribute("title", "Login");
+        return "user/login";
+    }
+
 }
