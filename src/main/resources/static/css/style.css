@@ -95,7 +95,7 @@ body {
 }
 
 .sidenav {
-  height: 95%;
+  height: 92%;
   width: 120px;
   position: fixed;
   z-index: 1;
@@ -196,6 +196,7 @@ th, td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  font-size: 15px;
 
 }
 
@@ -245,7 +246,7 @@ display: inline;
   margin-top: 8px;
   margin-right: 16px;
   background: #ddd;
-  font-size: 17px;
+  font-size: 10px;
   border: none;
   cursor: pointer;
 }
@@ -253,6 +254,6 @@ display: inline;
   background: #ccc;
 }
 
-
+}
 </style>
 </head>

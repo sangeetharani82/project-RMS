@@ -2,13 +2,12 @@ package org.launchcode.projectRMS.models;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Recipe {
@@ -42,6 +41,11 @@ public class Recipe {
     @NotNull
     @Size(min=3, max = 3000000)
     private String direction;
+
+    @OneToMany
+    @JoinColumn(name = "recipe_id")
+    private List<RateComment> rateCommentList = new ArrayList<>();
+
 
     public Recipe(String recipeName, int servingSize, String prepTime, String cookTime,
                   String ingredient, String direction) {
@@ -125,4 +129,11 @@ public class Recipe {
         this.ingredient = ingredient;
     }
 
+    public List<RateComment> getRateCommentList() {
+        return rateCommentList;
+    }
+
+    public void addItem(RateComment item){
+        rateCommentList.add(item);
+    }
 }

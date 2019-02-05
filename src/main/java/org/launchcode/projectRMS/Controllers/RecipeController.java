@@ -3,9 +3,11 @@ package org.launchcode.projectRMS.Controllers;
 
 import org.launchcode.projectRMS.models.Category;
 import org.launchcode.projectRMS.models.Course;
+import org.launchcode.projectRMS.models.RateComment;
 import org.launchcode.projectRMS.models.Recipe;
 import org.launchcode.projectRMS.models.data.CategoryDao;
 import org.launchcode.projectRMS.models.data.CourseDao;
+import org.launchcode.projectRMS.models.data.RateCommentDao;
 import org.launchcode.projectRMS.models.data.RecipeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,28 +80,6 @@ public class RecipeController {
         model.addAttribute("recipe", recipe);
         return "recipe/single";
     }
-//updated recipe-keeper project till this
-
-//    //delete a recipe
-//    @RequestMapping(value="remove", method = RequestMethod.GET)
-//    public String displayRemoveRecipeForm(Model model){
-//        model.addAttribute("recipes", recipeDao.findAll());
-//        model.addAttribute("title", "Delete recipe(s)");
-//        return "recipe/remove";
-//    }
-//
-//    @RequestMapping(value="remove", method = RequestMethod.POST)
-//    public String processRemoveRecipeForm(@RequestParam(defaultValue = "-1") int[] recipeIds, Model model){
-//        for (int recipeId : recipeIds){
-//            if (recipeId != -1) {
-//                recipeDao.delete(recipeId);
-//                return "redirect:";
-//            }
-//        }
-//        model.addAttribute("recipes", recipeDao.findAll());
-//        model.addAttribute("title", "Delete recipe(s)");
-//        return "recipe/remove";
-//    }
 
     // delete each recipe
     @RequestMapping(value = "delete/{recipeId}")
@@ -164,11 +144,29 @@ public class RecipeController {
         return "recipe/index";
     }
 
-    @RequestMapping(value="search", method = RequestMethod.GET)
-    public String getRecipeNames(@RequestParam String searchTerm, Model model){
-        return "recipe/view";
+    //updated recipe-keeper project till this
 
-    }
+//    //delete a recipe
+//    @RequestMapping(value="remove", method = RequestMethod.GET)
+//    public String displayRemoveRecipeForm(Model model){
+//        model.addAttribute("recipes", recipeDao.findAll());
+//        model.addAttribute("title", "Delete recipe(s)");
+//        return "recipe/remove";
+//    }
+//
+//    @RequestMapping(value="remove", method = RequestMethod.POST)
+//    public String processRemoveRecipeForm(@RequestParam(defaultValue = "-1") int[] recipeIds, Model model){
+//        for (int recipeId : recipeIds){
+//            if (recipeId != -1) {
+//                recipeDao.delete(recipeId);
+//                return "redirect:";
+//            }
+//        }
+//        model.addAttribute("recipes", recipeDao.findAll());
+//        model.addAttribute("title", "Delete recipe(s)");
+//        return "recipe/remove";
+//    }
+
 }
 
 
