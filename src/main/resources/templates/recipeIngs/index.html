@@ -8,20 +8,19 @@
         <h1 th:text="${title}">Default title</h1>
     </div>
 
-    <p th:unless="${lists} and ${lists.size()}">None yet</p>
     <table class="table">
         <tr th:each="recipe : ${recipes}">
-            <tr>
-        <td th:id="${recipe.id}"><a th:href="@{'/rate/recipe?id=' + ${recipe.id}}" th:text="${recipe.recipeName}"></a>
-        </td>
-            </tr>
+        <tr>
+            <td th:id="${recipe.id}"><a th:href="@{'/recipeIngs/recipe?id=' + ${recipe.id}}" th:text="${recipe.recipeName}"></a>
+            </td>
+        </tr>
         </tr>
 
     </table>
 
     <td>
-        <form th:action="@{'/rate/add'}" th:object="${rate}" method="get">
-            <button>Comment here</button>
+        <form th:action="@{'/recipeIngs/add'}" th:object="${recipeIngs}" method="get">
+            <button>Add Ingredients</button>
         </form>
     </td>
 </div>

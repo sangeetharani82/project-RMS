@@ -46,7 +46,6 @@ public class Recipe {
     @JoinColumn(name = "recipe_id")
     private List<RateComment> rateCommentList = new ArrayList<>();
 
-
     public Recipe(String recipeName, int servingSize, String prepTime, String cookTime,
                   String ingredient, String direction) {
         this();
@@ -133,7 +132,4 @@ public class Recipe {
         return rateCommentList;
     }
 
-    public void addItem(RateComment item){
-        rateCommentList.add(item);
-    }
 }

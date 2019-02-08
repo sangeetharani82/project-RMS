@@ -95,7 +95,7 @@ body {
 }
 
 .sidenav {
-  height: 92%;
+  height: 93%;
   width: 120px;
   position: fixed;
   z-index: 1;
@@ -200,6 +200,7 @@ th, td {
 
 }
 
+
 .tableheading {
     font-size: 200%;
     text-align: center;
@@ -210,6 +211,7 @@ th, td {
   .col-25, .col-75, input[type=submit], input[type=email], input[type=password] {
     width: 100%;
     margin-top: 0;
+  }
   }
 .column {
   float: left;
@@ -253,7 +255,14 @@ display: inline;
  .search-container button:hover {
   background: #ccc;
 }
-
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
 }
+.alert.success {background-color: #4CAF50;}
 </style>
 </head>

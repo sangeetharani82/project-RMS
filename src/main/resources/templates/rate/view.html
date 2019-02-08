@@ -10,18 +10,16 @@
 
     <p th:unless="${ratings} and ${ratings.size()}">Rate/Comment</p>
     <table class="table">
-        <tr th:each="rating : ${ratings}">
+
             <tr>
                 <th>Rating</th>
+                <th>Comment</th>
+            </tr>
+        <tr th:each="rating : ${ratings}">
                 <td th:text="${rating.rating}"
                     th:id="${rating.id}">
                 </td>
-            </tr>
-            <tr>
-                <th>Comment</th>
-                <td th:text="${rating.comment}">
-                </td>
-            </tr>
+            <td th:text="${rating.comment}"></td>
         </tr>
 
     </table>

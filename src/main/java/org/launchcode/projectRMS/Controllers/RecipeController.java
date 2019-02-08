@@ -1,14 +1,8 @@
 package org.launchcode.projectRMS.Controllers;
 
 
-import org.launchcode.projectRMS.models.Category;
-import org.launchcode.projectRMS.models.Course;
-import org.launchcode.projectRMS.models.RateComment;
-import org.launchcode.projectRMS.models.Recipe;
-import org.launchcode.projectRMS.models.data.CategoryDao;
-import org.launchcode.projectRMS.models.data.CourseDao;
-import org.launchcode.projectRMS.models.data.RateCommentDao;
-import org.launchcode.projectRMS.models.data.RecipeDao;
+import org.launchcode.projectRMS.models.*;
+import org.launchcode.projectRMS.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,7 +61,9 @@ public class RecipeController {
         newRecipe.setCourse(cor);
         newRecipe.setCategory(cat);
         recipeDao.save(newRecipe);
-        return "redirect:single/"+newRecipe.getId();
+        model.addAttribute("message", "Recipe added successfully!");
+        return "message";
+       // return "redirect:single/"+newRecipe.getId();
     }
 
     //view single recipe
@@ -85,8 +81,9 @@ public class RecipeController {
     @RequestMapping(value = "delete/{recipeId}")
     public String delete(@PathVariable int recipeId, Model model){
         recipeDao.delete(recipeId);
-        model.addAttribute("message", "Recipe was deleted");
-        return "redirect:/recipe";
+        model.addAttribute("message", "Recipe deleted successfully!");
+        return "message";
+        //return "redirect:/recipe";
     }
 
     //Edit a recipe
@@ -103,7 +100,7 @@ public class RecipeController {
     public String processEditForm(@PathVariable int recipeId, @RequestParam String recipeName,
                                   @RequestParam int courseId, @RequestParam int categoryId,
                                   @RequestParam int servingSize, @RequestParam String prepTime,
-                                  @RequestParam String cookTime,
+                                  @RequestParam String cookTime, Model model,
                                   @RequestParam String ingredient,
                                   @RequestParam String direction){
         Recipe edited = recipeDao.findOne(recipeId);
@@ -122,7 +119,9 @@ public class RecipeController {
         edited.setCategory(cat);
 
         recipeDao.save(edited);
-        return "redirect:/recipe";
+        model.addAttribute("message", "Recipe edited and saved successfully!");
+        return "message";
+        //return "redirect:/recipe";
     }
 
     //recipes in a course

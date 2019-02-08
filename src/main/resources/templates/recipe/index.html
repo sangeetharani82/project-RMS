@@ -7,17 +7,13 @@
     <div class="header">
         <h1 th:text="${title}">Default title</h1>
     </div>
-
-    <div th:if="${message}" class="alert alert-success" role="alert">
-        <p th:text="${message}">success message</p>
-    </div>
-
     <p th:unless="${recipes} and ${recipes.size()}">no recipes :-(</p>
     <table class="table">
         <tr th:each="recipe : ${recipes}">
         <tr>
             <td th:text="${recipe.recipeName}"
                 th:id="${recipe.id}"></td>
+
         <td>
             <form th:action="@{'/recipe/edit/'+${recipe.id}}" th:object="${recipe}" method="get">
                 <button>Edit</button>
@@ -36,6 +32,10 @@
         </tr>
         </tr>
         <td>
+            <form th:action="@{'/recipeIngs/add'}" th:object="${recipeIngs}" method="get">
+                <button>Add Ingredients to Recipe</button>
+            </form>
+            <h3></h3>
             <form th:action="@{'/rate/add'}" th:object="${rate}" method="get">
                 <button>Comment here</button>
             </form>

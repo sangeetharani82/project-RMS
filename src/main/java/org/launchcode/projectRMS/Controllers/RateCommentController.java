@@ -51,7 +51,9 @@ public class RateCommentController {
         Recipe recipe = recipeDao.findOne(recipeId);
         newRate.setRecipe(recipe);
         rateCommentDao.save(newRate);
-        return "redirect:";
+        model.addAttribute("message", "Successfully added!");
+        return "message";
+        //return "redirect:";
     }
 
     @RequestMapping(value = "recipe", method = RequestMethod.GET)
@@ -62,10 +64,6 @@ public class RateCommentController {
         model.addAttribute("title", "Rating and comments for " + recipe.getRecipeName());
         return "rate/view";
     }
-//
-//    @RequestMapping(value = "view", method = RequestMethod.GET)
-//    public String viewRatingForEachRecipe(Model model, ){
-//
-//    }
+
 
 }

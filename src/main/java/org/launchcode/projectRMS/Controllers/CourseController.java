@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,6 +45,17 @@ public class CourseController {
             return "course/add";
         }
         courseDao.save(course);
-        return "redirect:";
+        model.addAttribute("message", "Successfully added!");
+        return "message";
+        //return "redirect:";
+    }
+
+    // delete each course
+    @RequestMapping(value = "delete/{courseId}")
+    public String delete(@PathVariable int courseId, Model model){
+        courseDao.delete(courseId);
+        model.addAttribute("message", "Successfully deleted!");
+        return "message";
+        //return "redirect:/course";
     }
 }
