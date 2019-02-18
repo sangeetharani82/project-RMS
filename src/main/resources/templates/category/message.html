@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div class="container">
+
+    <div class="alert success">
+        <strong th:text="${message}">Success!</strong>
+        <h1></h1>
+        <td>
+            <form th:action="@{'/category'}" method="get">
+                <button>Home</button>
+            </form>
+        </td>
+        <form th:action="@{'/category/add'}" th:object="${category}" method="get">
+            <button>Add a Category</button>
+        </form>
+    </div>
+
+
+</div>
+
+
+
+</body>
+</html>

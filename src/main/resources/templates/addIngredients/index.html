@@ -12,27 +12,22 @@
     <div class="header">
         <h1 th:text="${title}">Default title</h1>
     </div>
-
     <hr/>
 
-    <p th:unless="${ratings} and ${ratings.size()}">No comments yet</p>
     <table class="table">
-
+        <tr th:each="recipe : ${recipes}">
             <tr>
-                <th>Rating</th>
-                <th>Comment</th>
-            </tr>
-        <tr th:each="rating : ${ratings}">
-                <td th:text="${rating.rating}"
-                    th:id="${rating.id}">
+                <td th:id="${recipe.id}" th:text="${recipe.recipeName}"></td>
+                <td  th:id="${recipe.id}"><a th:href="@{'/addIngredients/recipe?id=' + ${recipe.id}}">
+                    <button>View Recipe Ingredients</button></a>
                 </td>
-            <td th:text="${rating.comment}"></td>
+            </tr>
         </tr>
-
     </table>
+    <hr/>
     <td>
-        <form th:action="@{'/rate/add'}" th:object="${rate}" method="get">
-            <button>Comment here</button>
+        <form th:action="@{'/addIngredients/add'}" th:object="${addIngredients}" method="get">
+            <button>Add Ingredients To Recipe</button>
         </form>
     </td>
 

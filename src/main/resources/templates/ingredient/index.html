@@ -2,23 +2,42 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-<nav th:replace="fragments :: navigation"></nav>
+<!--<nav th:replace="fragments :: navigation"></nav>-->
 <div class="content">
+    <td>
+        <form th:action="@{'/recipe'}" method="get">
+            <button>Home</button>
+        </form>
+    </td>
     <div class="header">
         <h1 th:text="${title}">Default title</h1>
     </div>
-
-    <h5><a th:href="@{'/ingredient/add'}">Add an Ingredient</a></h5>
+    <form th:action="@{'/ingredient/add'}" th:object="${ingredient}" method="get">
+        <button>Add an Ingredient</button>
+    </form>
+    <hr />
     <p th:unless="${ingredients} and ${ingredients.size()}">no ingredients :-(</p>
 
     <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
         <tr th:each="ingredient : ${ingredients}">
         <tr>
             <td th:id = "${ingredient.id}" ><a th:href="@{'/ingredient/edit/' + ${ingredient.id}}"
                                                th:text="${ingredient.ingredientName}"></a></td>
+        <td>
+            <form th:action="@{'/ingredient/delete/'+${ingredient.id}}" th:object="${ingredient}" method="post">
+                <button type="submit" onClick="return confirm('sure?')">Delete</button>
+            </form>
+        </td>
         </tr>
         </tr>
     </table>
+    <hr />
 </div>
 
 </body>

@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.sql.Time;
 import java.util.List;
 
 @Controller
@@ -30,7 +28,6 @@ public class RecipeController {
     // Request path: /recipe
     @RequestMapping(value = "")
     public String index(Model model) {
-
         model.addAttribute("recipes", recipeDao.findAll());
         model.addAttribute("title", "All recipes");
         return "recipe/index";
@@ -61,9 +58,10 @@ public class RecipeController {
         newRecipe.setCourse(cor);
         newRecipe.setCategory(cat);
         recipeDao.save(newRecipe);
+
         model.addAttribute("message", "Recipe added successfully!");
-        return "message";
-       // return "redirect:single/"+newRecipe.getId();
+        return "addIngredients/view";
+        // return "redirect:single/"+newRecipe.getId();
     }
 
     //view single recipe
@@ -74,6 +72,9 @@ public class RecipeController {
         model.addAttribute("course", recipe.getCourse());
         model.addAttribute("category", recipe.getCategory());
         model.addAttribute("recipe", recipe);
+        List<AddIngredientsToRecipe> lists = recipe.getAddIngredientsToRecipes();
+        model.addAttribute("title", recipe.getRecipeName());
+        model.addAttribute("ingredientLists", lists);
         return "recipe/single";
     }
 
@@ -82,8 +83,7 @@ public class RecipeController {
     public String delete(@PathVariable int recipeId, Model model){
         recipeDao.delete(recipeId);
         model.addAttribute("message", "Recipe deleted successfully!");
-        return "message";
-        //return "redirect:/recipe";
+        return "recipe/message";
     }
 
     //Edit a recipe
@@ -101,14 +101,12 @@ public class RecipeController {
                                   @RequestParam int courseId, @RequestParam int categoryId,
                                   @RequestParam int servingSize, @RequestParam String prepTime,
                                   @RequestParam String cookTime, Model model,
-                                  @RequestParam String ingredient,
                                   @RequestParam String direction){
         Recipe edited = recipeDao.findOne(recipeId);
         edited.setRecipeName(recipeName);
         edited.setServingSize(servingSize);
         edited.setPrepTime(prepTime);
         edited.setCookTime(cookTime);
-        edited.setIngredient(ingredient);
         edited.setDirection(direction);
 
 
@@ -119,9 +117,14 @@ public class RecipeController {
         edited.setCategory(cat);
 
         recipeDao.save(edited);
+
         model.addAttribute("message", "Recipe edited and saved successfully!");
-        return "message";
-        //return "redirect:/recipe";
+
+        List<AddIngredientsToRecipe> lists = edited.getAddIngredientsToRecipes();
+        model.addAttribute("title", "Ingredients needed for " + edited.getRecipeName());
+        model.addAttribute("ingredientLists", lists);
+
+        return "addIngredients/view";
     }
 
     //recipes in a course
@@ -143,8 +146,6 @@ public class RecipeController {
         return "recipe/index";
     }
 
-    //updated recipe-keeper project till this
-
 //    //delete a recipe
 //    @RequestMapping(value="remove", method = RequestMethod.GET)
 //    public String displayRemoveRecipeForm(Model model){
@@ -165,7 +166,6 @@ public class RecipeController {
 //        model.addAttribute("title", "Delete recipe(s)");
 //        return "recipe/remove";
 //    }
-
 }
 
 

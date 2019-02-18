@@ -27,7 +27,7 @@ public class RateCommentController {
     public String index(Model model){
         model.addAttribute("title", "Ratings and comments");
         model.addAttribute("recipes", recipeDao.findAll());
-        model.addAttribute("lists", rateCommentDao.findAll());
+        //model.addAttribute("lists", rateCommentDao.findAll());
         return "rate/index";
     }
 
@@ -52,8 +52,10 @@ public class RateCommentController {
         newRate.setRecipe(recipe);
         rateCommentDao.save(newRate);
         model.addAttribute("message", "Successfully added!");
-        return "message";
-        //return "redirect:";
+        List<RateComment> rateComments = recipe.getRateCommentList();
+        model.addAttribute("ratings", rateComments);
+        model.addAttribute("title", "Ratings and comments for " + recipe.getRecipeName());
+        return "rate/message";
     }
 
     @RequestMapping(value = "recipe", method = RequestMethod.GET)

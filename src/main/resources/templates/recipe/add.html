@@ -3,11 +3,16 @@
 <head th:replace="fragments :: head"></head>
 <body>
 
-<nav th:replace="fragments :: navigation"></nav>
+<!--<nav th:replace="fragments :: navigation"></nav>-->
 <div class="content">
+    <form th:action="@{'/recipe'}" method="get">
+        <button>Home</button>
+    </form>
     <div class="header">
         <h2 th:text="${title}">Default title</h2>
     </div>
+
+    <hr/>
     <div class="rows">
         <div class="column side" style="background-color:#ccc;">
             <form method="post" style="max-width:500px;" th:object="${recipe}">
@@ -64,7 +69,7 @@
                         <label th:for="prepTime">Prep Time</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" th:field="*{prepTime}" placeholder="Prep Time" />
+                        <input th:field="*{prepTime}" placeholder="Prep Time" />
                     </div>
                     <span th:errors="*{prepTime}" class="error"></span>
                 </div>
@@ -73,22 +78,12 @@
                         <label th:for="cookTime">Cook Time</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" th:field="*{cookTime}" placeholder="Cook Time"/>
+                        <input th:field="*{cookTime}" placeholder="Cook Time"/>
                     </div>
                     <span th:errors="*{cookTime}" class="error"></span>
 
                 </div>
 
-                <div class="row">
-                    <div class="col-25">
-                        <label th:for="ingredient">Ingredients And Quantity</label>
-                    </div>
-                    <div class="col-75">
-                        <textarea th:field="*{ingredient}"  style="height:200px"></textarea>
-                    </div>
-                    <span th:errors="*{ingredient}" class="error"></span>
-
-                </div>
                 <div class="row">
                     <div class="col-25">
                         <label th:for="direction">Direction</label>
@@ -105,6 +100,7 @@
             </form>
         </div>
     </div>
+    <hr/>
 </div>
 
 </body>

@@ -2,16 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-<nav th:replace="fragments :: navigation"></nav>
+<!--<nav th:replace="fragments :: navigation"></nav>-->
 <div class="content">
+    <td>
+        <form th:action="@{'/recipe'}" method="get">
+            <button>Home</button>
+        </form>
+    </td>
     <div class="header">
         <h1 th:text="${title}">Default title</h1>
     </div>
-    <h5><a th:href="@{'/course/add'}">Add a Course</a></h5>
-
+    <form th:action="@{'/course/add'}" th:object="${course}" method="get">
+        <button>Add a Course</button>
+    </form>
+    <hr />
     <p th:unless="${courses} and ${courses.size()}">no courses :-(</p>
 
     <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
         <tr th:each="course : ${courses}">
         <tr>
             <td th:id = "${course.id}" ><a th:href="@{'/recipe/course?id=' + ${course.id}}"
@@ -24,6 +37,8 @@
         </tr>
         </tr>
     </table>
+
+    <hr />
 </div>
 
 </body>

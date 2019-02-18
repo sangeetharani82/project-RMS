@@ -3,11 +3,17 @@
 <head th:replace="fragments :: head"></head>
 <body>
 
-<nav th:replace="fragments :: navigation"></nav>
+<!--<nav th:replace="fragments :: navigation"></nav>-->
 <div class="content">
+    <td>
+        <form th:action="@{'/ingredient'}" method="get">
+            <button>Home</button>
+        </form>
+    </td>
     <div class="header">
         <h2 th:text="${title}">Default title</h2>
     </div>
+    <hr/>
     <div class="rows">
         <div class="column side" style="background-color:#ccc;">
             <form method="post" style="max-width:500px;" th:object="${ingredient}">

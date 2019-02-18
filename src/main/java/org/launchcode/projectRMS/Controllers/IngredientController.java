@@ -41,7 +41,9 @@ public class IngredientController {
             return "ingredient/add";
         }
         ingredientDao.save(ingredient);
-        return "redirect:";
+        model.addAttribute("message", "Successfully added!");
+        return "ingredient/message";
+        //return "redirect:";
     }
 
     @RequestMapping(value="edit/{ingredientId}", method = RequestMethod.GET)
@@ -53,10 +55,21 @@ public class IngredientController {
     }
 
     @RequestMapping(value = "edit/{ingredientId}", method = RequestMethod.POST)
-    public String processEditForm(@PathVariable int ingredientId, @RequestParam String ingredientName){
+    public String processEditForm(@PathVariable int ingredientId, @RequestParam String ingredientName,
+                                  Model model){
         Ingredient edited = ingredientDao.findOne(ingredientId);
         edited.setIngredientName(ingredientName);
         ingredientDao.save(edited);
-        return "redirect:/ingredient";
+        model.addAttribute("message", "Successfully edited and saved!");
+        return "ingredient/message";
+        //return "redirect:/ingredient";
+    }
+
+    @RequestMapping(value = "delete/{ingredientId}")
+    public String delete(@PathVariable int ingredientId, Model model){
+        ingredientDao.delete(ingredientId);
+        model.addAttribute("message", "Successfully deleted!");
+        return "ingredient/message";
+        //return "redirect:/ingredient";
     }
 }

@@ -2,28 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-<nav th:replace="fragments :: navigation"></nav>
+<!--<nav th:replace="fragments :: navigation"></nav>-->
 <div class="content">
+    <td>
+        <form th:action="@{'/recipe'}" method="get">
+            <button>Home</button>
+        </form>
+    </td>
     <div class="header">
         <h1 th:text="${title}">Default title</h1>
     </div>
 
-    <p th:unless="${lists} and ${lists.size()}">None yet</p>
+    <hr />
+    <p th:unless="${recipes} and ${recipes.size()}">None yet</p>
     <table class="table">
         <tr th:each="recipe : ${recipes}">
             <tr>
-        <td th:id="${recipe.id}"><a th:href="@{'/rate/recipe?id=' + ${recipe.id}}" th:text="${recipe.recipeName}"></a>
-        </td>
+        <td th:id="${recipe.id}" th:text="${recipe.recipeName}"></td>
+        <td  th:id="${recipe.id}"><a th:href="@{'/rate/recipe?id=' + ${recipe.id}}">
+            <button>View Ratings</button></a></td>
             </tr>
         </tr>
 
     </table>
-
-    <td>
+    <hr />
+    <!--<td>
         <form th:action="@{'/rate/add'}" th:object="${rate}" method="get">
             <button>Comment here</button>
         </form>
-    </td>
+    </td>-->
 </div>
 
 </body>
