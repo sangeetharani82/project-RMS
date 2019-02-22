@@ -2,22 +2,45 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-<nav th:replace="fragments :: navigation"></nav>
-<div class="content">
-    <div class="header">
-        <h1 th:text="${title}">Default title</h1>
-    </div>
 
+<div class="container" style="background:#FFFFF0;">
+    <a th:href="@{'/recipe'}" method="get">
+        <button type="button" class="btn btn-primary">Home</button>
+    </a>
+    <div class="header">
+        <center style="font-size:30px;" th:text="${title}">Default title</center>
+    </div>
+    <h4 th:text="${message}"></h4>
+<hr/>
     <p th:unless="${users} and ${users.size()}">no users :-(</p>
     <table class="table">
-        <tr th:each="user : ${users}">
+        <thead>
         <tr>
-            <td><a th:href="@{'/user/view/' + ${user.id}}"
-                   th:text="${user.firstName} + ' ' + ${user.lastName}"
-                   th:id="${user.id}"></a></td>
+            <th>Name</th>
+            <th>Detail</th>
+            <th>Remove</th>
+            <th>View Recipes</th>
         </tr>
+        </thead>
+        <tr th:each="user : ${users}">
+            <tr>
+                <td th:text="${user.firstName} + ' ' + ${user.lastName}"
+                    th:id="${user.id}">
+                </td>
+                <td>
+                    <a th:href="@{'/user/view/'+${user.id}}" th:object="${user}" method="get">
+                        <button type="button" class="btn btn-primary">View</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{'/user/delete/'+${user.id}}" th:object="${user}" method="post">
+                        <button type="submit" class="btn btn-primary" onClick="return confirm('Are you sure?')">Delete</button>
+                    </a>
+                </td>
+            </tr>
         </tr>
     </table>
+    <hr/>
 </div>
 
 </body>

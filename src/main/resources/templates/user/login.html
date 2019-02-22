@@ -2,41 +2,37 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-<nav th:replace="fragments :: navigation"></nav>
-<div class="content">
+<!--nav th:replace="fragments :: navigation"></nav>-->
+<div class="container" style="background:#FFFFF0;">
+    <td>
+        <form th:action="@{'/recipe'}" method="get">
+            <button class="btn btn-default">Home</button>
+        </form>
+    </td>
     <div class="header">
-        <h2 th:text="${title}">Default title</h2>
+        <center style="font-size:30px;" th:text="${title}">Default title</center>
     </div>
-    <div class="rows">
-        <div class="column side" style="background-color:#ccc;">
-            <form method="post" style="max-width:500px;">
-                <div class="row">
-                    <div class="col-25">
-                        <label th:for="email">Email</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="email" placeholder="Email"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-25">
-                        <label th:for="password">Password</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="password" placeholder="Password"/>
-                    </div>
+    <h4 style="color:red;" th:text="${error}"></h4>
 
-                </div>
-
-                <div class="row">
-                    <input type="submit" value="Login"/>
-                </div>
-            </form>
+    <form method="post" style="max-width:500px;" th:object="${loginUser}">
+        <div class="form-group">
+            <label th:for="email">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" placeholder="Email..."/>
+            <span th:errors="*{email}" class="error"></span>
         </div>
-    </div>
+        <div class="form-group">
+            <label th:for="password">First Name</label>
+            <input type="password" class="form-control" th:field="*{password}" placeholder="Password..."/>
+            <span th:errors="*{password}" class="error"></span>
+        </div>
+        <button type="submit" class="btn btn-default">Login</button>
+    </form>
+    <hr/>
+    <td>Don't have an account?
+        <a href="/user/add">Create one!</a></td>
+
 </div>
 </body>
 </html>
-<!--
-<h1 th:text="'Welcome'+${name}">Welcome</h1>
--->
+
+

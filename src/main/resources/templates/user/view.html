@@ -2,11 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-<nav th:replace="fragments :: navigation"></nav>
-<div class="content">
-    <div class="header">
-        <h1 th:text="${title}">Default title</h1>
+<!--nav th:replace="fragments :: navigation"></nav>-->
+<nav th:fragment="navigation">
+    <div class="sidenav">
+        <a href="/recipe/add">Add Recipe</a>
     </div>
+
+</nav>
+<div class="container" style="background:#FFFFF0;">
+    <form th:action="@{'/user/logout'}" method="get">
+        <button>Logout</button>
+    </form>
+    <div class="header">
+        <h3 style="color:green" th:text="${title}">Default title</h3>
+    </div>
+    <P style="color:green" th:text="Welcome + ' ' +${user} + '!' "></P>
+    <!--<p style="color:green" th:text="${message}">Success!</p>
     <div class="single" th:each="i : ${user}">
         <table>
             <tr>
@@ -25,8 +36,7 @@
                     th:text="${i.email}"></td>
             </tr>
         </table>
-    </div>
+    </div>-->
 </div>
-
 </body>
 </html>

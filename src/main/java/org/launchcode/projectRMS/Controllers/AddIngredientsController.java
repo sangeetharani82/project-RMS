@@ -32,6 +32,7 @@ public class AddIngredientsController {
     public String index(Model model){
         model.addAttribute("title", "Pick a recipe and add the ingredients");
         model.addAttribute("recipes", recipeDao.findAll());
+        model.addAttribute("message", "Successfully deleted!");
         return "addIngredients/index";
     }
 
@@ -68,13 +69,12 @@ public class AddIngredientsController {
         return "addIngredients/view";
     }
 
-    // delete each Category
+    // delete ingredient from recipe
     @RequestMapping(value = "delete/{id}")
     public String delete(@PathVariable int id , Model model){
         addIngredientsDao.delete(id);
         model.addAttribute("message", "Successfully deleted!");
         return "addIngredients/message";
-        //return "redirect:/addIngredients";
     }
 
     @RequestMapping(value = "recipe", method = RequestMethod.GET)

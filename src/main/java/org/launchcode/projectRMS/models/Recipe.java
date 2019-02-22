@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Recipe {
     private int id;
 
     @NotNull
+    @Pattern(regexp = "[^0-9]*")
     @Size(min = 3, max = 100)
     private String recipeName;
 
@@ -28,10 +30,14 @@ public class Recipe {
     @NotNull
     private int servingSize;
 
+//    private User user;
+
     @NotNull
+    @Size(min = 3, message = "Prep time needed")
     private String  prepTime;
 
     @NotNull
+    @Size(min = 3, message = "Cook time needed")
     private String cookTime;
 
     @NotNull
@@ -46,7 +52,16 @@ public class Recipe {
     @JoinColumn(name = "recipe_id")
     private List<AddIngredientsToRecipe> addIngredientsToRecipes = new ArrayList<>();
 
-    public Recipe(String recipeName, int servingSize, String prepTime, String cookTime,
+//    public Recipe(String recipeName, int servingSize, User user, String prepTime, String cookTime, String direction) {
+//        this.recipeName = recipeName;
+//        this.servingSize = servingSize;
+//        this.user = user;
+//        this.prepTime = prepTime;
+//        this.cookTime = cookTime;
+//        this.direction = direction;
+//    }
+
+        public Recipe(String recipeName, int servingSize, String prepTime, String cookTime,
                   String direction) {
         this();
         this.recipeName = recipeName;
@@ -126,4 +141,12 @@ public class Recipe {
     public List<AddIngredientsToRecipe> getAddIngredientsToRecipes() {
         return addIngredientsToRecipes;
     }
+
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }

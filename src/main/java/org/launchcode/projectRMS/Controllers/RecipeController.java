@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,6 +27,9 @@ public class RecipeController {
 
     @Autowired
     CategoryDao categoryDao;
+
+    @Autowired
+    UserDao userDao;
 
     // Request path: /recipe
     @RequestMapping(value = "")
@@ -46,13 +52,14 @@ public class RecipeController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddRecipeForm(Model model, @ModelAttribute @Valid Recipe newRecipe,
                                        Errors errors, @RequestParam int courseId, @RequestParam int categoryId) {
-
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add a recipe");
             model.addAttribute("courses", courseDao.findAll());
             model.addAttribute("categories", categoryDao.findAll());
             return "recipe/add";
         }
+//        int id = loggedInUser.getId();
+//        newRecipe.setUser(userDao.findOne(id));
         Course cor = courseDao.findOne(courseId);
         Category cat = categoryDao.findOne(categoryId);
         newRecipe.setCourse(cor);
@@ -83,6 +90,7 @@ public class RecipeController {
     public String delete(@PathVariable int recipeId, Model model){
         recipeDao.delete(recipeId);
         model.addAttribute("message", "Recipe deleted successfully!");
+        //return "redirect:/recipe";
         return "recipe/message";
     }
 
@@ -145,6 +153,25 @@ public class RecipeController {
         model.addAttribute("title", "Recipes in Category" + cat.getCategoryName());
         return "recipe/index";
     }
+
+//    @RequestMapping(value = "overAll", method = RequestMethod.GET)
+//    public String overAllRating(Model model){
+//        ArrayList<Integer> ratings = new ArrayList<>();
+//        int running_total = 0;
+//        double averageRating;
+//        for (Recipe recipe : recipeDao.findAll()){
+//            int id = recipe.getId();
+//            for (RateComment rate : recipeDao.findOne(id).getRateCommentList()){
+//                ratings.add(rate.getRating());
+//            }
+//        }
+//        for (int i : ratings){
+//            running_total = running_total + i;
+//        }
+//        averageRating = running_total / ratings.size();
+//        model.addAttribute("average", averageRating);
+//        return "recipe/index";
+//    }
 
 //    //delete a recipe
 //    @RequestMapping(value="remove", method = RequestMethod.GET)

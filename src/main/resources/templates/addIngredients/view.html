@@ -3,24 +3,24 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <!--<nav th:replace="fragments :: navigation"></nav>-->
-<div class="content">
-    <td>
-        <form th:action="@{'/recipe'}" method="get">
-            <button>Home</button>
-        </form>
-    </td>
+<div class="container" style="background:#FFFFF0;">
+    <a th:href="@{'/recipe'}" method="get">
+        <button class="btn btn-default">Home</button>
+    </a>
     <div class="header">
-        <h1 th:text="${title}">Default title</h1>
+        <center style="font-size:30px;" th:text="${title}">Default title</center>
     </div>
-    <td>
-        <form th:action="@{'/addIngredients/add'}" th:object="${addIngredients}" method="get">
-            <button>Add Ingredients To Recipe</button>
-        </form>
-    </td>
+    <!--<div class="alert alert-success">
+        <strong th:text="${message}">Success!</strong>
+    </div>-->
+
     <hr/>
 
     <p th:unless="${ingredientLists} and ${ingredientLists.size()}">No Ingredients added yet</p>
-    <table class="table">
+    <a th:href="@{'/addIngredients/add'}" th:object="${addIngredients}" method="get">
+        <button class="btn btn-primary">Add Ingredients To Recipe</button>
+    </a>
+    <table class="table table-striped">
         <tr>
             <th>Ingredient</th>
             <th>Quantity</th>
@@ -34,9 +34,9 @@
                 <td th:id="${list.id}"
                     th:text="${list.quantity}"></td>
             <td>
-                <form th:action="@{'/addIngredients/delete/'+${list.id}}" th:object="${addIngredients}" method="post">
-                    <button type="submit" onClick="return confirm('sure?')">Delete</button>
-                </form>
+                <a th:href="@{'/addIngredients/delete/'+${list.id}}" th:object="${addIngredients}" method="post">
+                    <button type="submit" class="btn btn-primary" onClick="return confirm('sure?')">Delete</button>
+                </a>
             </td>
             </tr>
         </tr>

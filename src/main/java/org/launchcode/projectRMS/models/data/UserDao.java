@@ -8,4 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface UserDao extends CrudRepository<User, Integer> {
+
+    User findByEmail(String email);
 }
