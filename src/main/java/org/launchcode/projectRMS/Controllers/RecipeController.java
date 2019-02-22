@@ -90,7 +90,6 @@ public class RecipeController {
     public String delete(@PathVariable int recipeId, Model model){
         recipeDao.delete(recipeId);
         model.addAttribute("message", "Recipe deleted successfully!");
-        //return "redirect:/recipe";
         return "recipe/message";
     }
 
@@ -126,13 +125,13 @@ public class RecipeController {
 
         recipeDao.save(edited);
 
-        model.addAttribute("message", "Recipe edited and saved successfully!");
+        model.addAttribute("message", "Successfully edited!");
 
         List<AddIngredientsToRecipe> lists = edited.getAddIngredientsToRecipes();
         model.addAttribute("title", "Ingredients needed for " + edited.getRecipeName());
         model.addAttribute("ingredientLists", lists);
 
-        return "addIngredients/view";
+        return "addIngredients/viewWithMsg";
     }
 
     //recipes in a course

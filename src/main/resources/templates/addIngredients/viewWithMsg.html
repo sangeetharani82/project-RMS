@@ -10,6 +10,10 @@
     <div class="header">
         <center style="font-size:30px;" th:text="${title}">Default title</center>
     </div>
+    <div class="alert alert-success">
+        <strong th:text="${message}">Success!</strong>
+    </div>
+
     <hr/>
 
     <p th:unless="${ingredientLists} and ${ingredientLists.size()}">No Ingredients added yet</p>
@@ -25,16 +29,16 @@
         </tr>
         <tr th:each = "list : ${ingredientLists}">
 
-            <tr>
-                <td th:text="${list.ingredient.ingredientName}"></td>
-                <td th:id="${list.id}"
-                    th:text="${list.quantity}"></td>
+        <tr>
+            <td th:text="${list.ingredient.ingredientName}"></td>
+            <td th:id="${list.id}"
+                th:text="${list.quantity}"></td>
             <td>
                 <a th:href="@{'/addIngredients/delete/'+${list.id}}" th:object="${addIngredients}" method="post">
                     <button type="submit" class="btn btn-primary" onClick="return confirm('sure?')">Delete</button>
                 </a>
             </td>
-            </tr>
+        </tr>
         </tr>
     </table>
     <hr/>

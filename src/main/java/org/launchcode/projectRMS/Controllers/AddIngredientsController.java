@@ -66,7 +66,7 @@ public class AddIngredientsController {
         List<AddIngredientsToRecipe> lists = recipe.getAddIngredientsToRecipes();
         model.addAttribute("title", "Ingredients needed for " + recipe.getRecipeName());
         model.addAttribute("ingredientLists", lists);
-        return "addIngredients/view";
+        return "addIngredients/viewWithMsg";
     }
 
     // delete ingredient from recipe

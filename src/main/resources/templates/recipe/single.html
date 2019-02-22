@@ -4,11 +4,9 @@
 <body>
 <!--<nav th:replace="fragments :: navigation"></nav>-->
 <div class="container" style="background:#FFFFF0;">
-    <td>
-        <form th:action="@{'/recipe'}" method="get">
+        <a th:action="@{'/recipe'}" method="get">
             <button class="btn btn-default">Home</button>
-        </form>
-    </td>
+        </a>
     <div class="header">
         <center style="font-size:30px;" th:text="${title}">Default title</center>
     </div>

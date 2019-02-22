@@ -3,20 +3,25 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <!--nav th:replace="fragments :: navigation"></nav>-->
-<nav th:fragment="navigation">
-    <div class="sidenav">
-        <a href="/recipe/add">Add Recipe</a>
-    </div>
 
-</nav>
 <div class="container" style="background:#FFFFF0;">
-    <form th:action="@{'/user/logout'}" method="get">
-        <button>Logout</button>
-    </form>
+
     <div class="header">
-        <h3 style="color:green" th:text="${title}">Default title</h3>
+        <center style="font-size:30px;" th:text="${title}">Default title</center>
+    </div>
+    <div class="btn-group">
+        <a th:href="@{'/recipe'}" method="get">
+            <button class="btn btn-primary">Home</button>
+        </a>
+        <a href="/recipe/add">
+            <button type="button" class="btn btn-primary">Add Recipe</button>
+        </a>
+        <a th:href="@{'/user/logout'}" method="get">
+            <button class="btn btn-primary">Logout</button>
+        </a>
     </div>
     <P style="color:green" th:text="Welcome + ' ' +${user} + '!' "></P>
+
     <!--<p style="color:green" th:text="${message}">Success!</p>
     <div class="single" th:each="i : ${user}">
         <table>

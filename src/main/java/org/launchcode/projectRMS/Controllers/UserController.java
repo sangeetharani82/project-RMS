@@ -1,5 +1,6 @@
 package org.launchcode.projectRMS.Controllers;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.launchcode.projectRMS.models.User;
 import org.launchcode.projectRMS.models.data.UserDao;
 import org.launchcode.projectRMS.models.loginUser;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -115,10 +118,10 @@ public class UserController {
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String processLogOutForm(HttpServletRequest request, Model model){
-        HttpSession httpSession = request.getSession();
-        httpSession.invalidate();
-        model.addAttribute("message", "User logged out");
-        return "redirect:/recipe";
+        request.getSession().invalidate();
+        model.addAttribute("message", "Logged Out Successful!");
+        model.addAttribute("loginUser", new loginUser());
+        return "user/logOutMsg";
     }
 
 }
