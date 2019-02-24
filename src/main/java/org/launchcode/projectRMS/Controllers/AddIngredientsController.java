@@ -45,6 +45,8 @@ public class AddIngredientsController {
         return "addIngredients/add";
     }
 
+    // delete ingredient from recipe
+
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddIngredientsForm(@RequestParam int recipeId, @RequestParam int ingredientId,
                                             Model model, @ModelAttribute @Valid AddIngredientsToRecipe newSet,
@@ -68,8 +70,6 @@ public class AddIngredientsController {
         model.addAttribute("ingredientLists", lists);
         return "addIngredients/viewWithMsg";
     }
-
-    // delete ingredient from recipe
     @RequestMapping(value = "delete/{id}")
     public String delete(@PathVariable int id , Model model){
         addIngredientsDao.delete(id);
