@@ -5,9 +5,9 @@
 
 <!--<nav th:replace="fragments :: navigation"></nav>-->
 <div class="container" style="background:#FFFFF0;">
-    <form th:action="@{'/recipe'}" method="get">
+    <a th:href="@{'/recipe'}" method="get">
         <button class="btn btn-default">Home</button>
-    </form>
+    </a>
     <div class="header">
         <center style="font-size:30px;" th:text="${title}">Default title</center>
     </div>

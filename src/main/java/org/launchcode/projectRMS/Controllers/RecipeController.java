@@ -9,10 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,10 +25,7 @@ public class RecipeController {
     @Autowired
     CategoryDao categoryDao;
 
-    @Autowired
-    UserDao userDao;
-
-    // Request path: /recipe
+        // Request path: /recipe
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("recipes", recipeDao.findAll());
@@ -140,8 +134,8 @@ public class RecipeController {
         Course cor = courseDao.findOne(id);
         List<Recipe> recipes = cor.getRecipes();
         model.addAttribute("recipes", recipes);
-        model.addAttribute("title", "Recipes in Course "+ cor.getCourseName());
-        return "recipe/index";
+        model.addAttribute("title", cor.getCourseName() + " recipes");
+        return "recipe/list-under";
     }
     //recipes in a category
     @RequestMapping(value = "category", method = RequestMethod.GET)
@@ -149,49 +143,10 @@ public class RecipeController {
         Category cat = categoryDao.findOne(id);
         List<Recipe> recipes = cat.getRecipes();
         model.addAttribute("recipes", recipes);
-        model.addAttribute("title", "Recipes in Category" + cat.getCategoryName());
-        return "recipe/index";
+        model.addAttribute("title", cat.getCategoryName() + " recipes");
+        return "recipe/list-under";
     }
-
-//    @RequestMapping(value = "overAll", method = RequestMethod.GET)
-//    public String overAllRating(Model model){
-//        ArrayList<Integer> ratings = new ArrayList<>();
-//        int running_total = 0;
-//        double averageRating;
-//        for (Recipe recipe : recipeDao.findAll()){
-//            int id = recipe.getId();
-//            for (RateComment rate : recipeDao.findOne(id).getRateCommentList()){
-//                ratings.add(rate.getRating());
-//            }
-//        }
-//        for (int i : ratings){
-//            running_total = running_total + i;
-//        }
-//        averageRating = running_total / ratings.size();
-//        model.addAttribute("average", averageRating);
-//        return "recipe/index";
-//    }
-
-//    //delete a recipe
-//    @RequestMapping(value="remove", method = RequestMethod.GET)
-//    public String displayRemoveRecipeForm(Model model){
-//        model.addAttribute("recipes", recipeDao.findAll());
-//        model.addAttribute("title", "Delete recipe(s)");
-//        return "recipe/remove";
-//    }
-//
-//    @RequestMapping(value="remove", method = RequestMethod.POST)
-//    public String processRemoveRecipeForm(@RequestParam(defaultValue = "-1") int[] recipeIds, Model model){
-//        for (int recipeId : recipeIds){
-//            if (recipeId != -1) {
-//                recipeDao.delete(recipeId);
-//                return "redirect:";
-//            }
-//        }
-//        model.addAttribute("recipes", recipeDao.findAll());
-//        model.addAttribute("title", "Delete recipe(s)");
-//        return "recipe/remove";
-//    }
 }
+
 
 

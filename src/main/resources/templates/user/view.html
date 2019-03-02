@@ -10,20 +10,20 @@
         <center style="font-size:30px;" th:text="${title}">Default title</center>
     </div>
     <div class="btn-group">
-        <a th:href="@{'/recipe'}" method="get">
-            <button class="btn btn-primary">Home</button>
+        <a th:href="@{'/user'}" method="get">
+            <button class="btn btn-default">Home</button>
         </a>
         <a href="/recipe/add">
-            <button type="button" class="btn btn-primary">Add Recipe</button>
+            <button type="button" class="btn btn-success">Add Recipe</button>
         </a>
         <a th:href="@{'/user/logout'}" method="get">
-            <button class="btn btn-primary">Logout</button>
+            <button class="btn btn-danger">Logout</button>
         </a>
     </div>
     <P style="color:green" th:text="Welcome + ' ' +${user} + '!' "></P>
 
     <!--<p style="color:green" th:text="${message}">Success!</p>
-    <div class="single" th:each="i : ${user}">
+    <div class="single" th:each="i : ${users}">
         <table>
             <tr>
                 <th>First Name</th>

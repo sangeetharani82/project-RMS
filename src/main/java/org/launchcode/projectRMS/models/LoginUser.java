@@ -4,7 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-public class loginUser {
+public class LoginUser {
     @Id
     @GeneratedValue
     private int id;
@@ -15,10 +15,10 @@ public class loginUser {
     @NotNull
     private String password;
 
-    public loginUser() {
+    public LoginUser() {
     }
 
-    public loginUser(String email, String password) {
+    public LoginUser(String email, String password) {
         this.email = email;
         this.password = password;
     }

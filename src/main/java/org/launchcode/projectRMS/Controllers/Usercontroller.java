@@ -1,9 +1,8 @@
 package org.launchcode.projectRMS.Controllers;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.launchcode.projectRMS.models.LoginUser;
 import org.launchcode.projectRMS.models.User;
 import org.launchcode.projectRMS.models.data.UserDao;
-import org.launchcode.projectRMS.models.loginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("user")
-public class UserController {
+public class Usercontroller{
 
     @Autowired
     private UserDao userDao;
@@ -41,8 +37,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processSignupForm(Model model, @ModelAttribute @Valid User newUser, Errors errors) {
-
+    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors,
+                                    HttpServletRequest request, Model model) {
         User alreadyExists = userDao.findByEmail(newUser.getEmail());
 
         if(alreadyExists != null){
@@ -71,17 +67,18 @@ public class UserController {
         model.addAttribute("user", newUser.getFirstName() + ' ' + newUser.getLastName());
         model.addAttribute("message", "Sign-up successful");
         return "redirect:view/"+newUser.getId();
+
     }
 
-    @RequestMapping(value="view/{id}", method = RequestMethod.GET)
-    public String viewUser(@PathVariable int id, Model model){
-        User user = userDao.findOne(id);
-        model.addAttribute("title", user.getFirstName() + ' ' + user.getLastName());
-        model.addAttribute("user", user.getFirstName() + ' ' + user.getLastName());
-        return "user/view";
-    }
+//    @RequestMapping(value="view/{id}", method = RequestMethod.GET)
+//    public String viewUser(@PathVariable int id, Model model){
+//        User user = userDao.findOne(id);
+//        model.addAttribute("title", user.getFirstName() + ' ' + user.getLastName());
+//        model.addAttribute("user", user.getFirstName() + ' ' + user.getLastName());
+//        return "user/view";
+//    }
 
-    @RequestMapping(value = "delete/{userId}")
+    @RequestMapping(value = "/delete/{userId}")
     public String delete(@PathVariable int userId, Model model){
         userDao.delete(userId);
         model.addAttribute("message", "User deleted successfully!");
@@ -92,13 +89,13 @@ public class UserController {
     @RequestMapping(value="login", method = RequestMethod.GET)
     public String displayLoginForm(Model model){
         model.addAttribute("title", "Login");
-        model.addAttribute("loginUser", new loginUser());
+        model.addAttribute("LoginUser", new LoginUser());
         return "user/login";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String processLoginForm(@ModelAttribute @Valid loginUser loginUser, Errors errors, Model model){
-
+    public String processLoginForm(Model model, @ModelAttribute @Valid LoginUser loginUser, Errors errors,
+                                   HttpServletRequest request){
         if (!errors.hasErrors()){
             User matchUser = userDao.findByEmail(loginUser.getEmail());
             if (matchUser == null){
@@ -116,11 +113,11 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String processLogOutForm(HttpServletRequest request, Model model){
         request.getSession().invalidate();
-        model.addAttribute("message", "Logged Out Successful!");
-        model.addAttribute("loginUser", new loginUser());
+        model.addAttribute("message", "Logged Out Successfully!");
+        model.addAttribute("LoginUser", new LoginUser());
         return "user/logOutMsg";
     }
 

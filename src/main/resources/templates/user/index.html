@@ -5,7 +5,7 @@
 
 <div class="container" style="background:#FFFFF0;">
     <a th:href="@{'/recipe'}" method="get">
-        <button type="button" class="btn btn-primary">Home</button>
+        <button type="button" class="btn btn-default">Home</button>
     </a>
     <div class="header">
         <center style="font-size:30px;" th:text="${title}">Default title</center>
@@ -29,12 +29,12 @@
                 </td>
                 <td>
                     <a th:href="@{'/user/view/'+${user.id}}" th:object="${user}" method="get">
-                        <button type="button" class="btn btn-primary">View</button>
+                        <button type="button" class="btn btn-info">View</button>
                     </a>
                 </td>
                 <td>
                     <a th:href="@{'/user/delete/'+${user.id}}" th:object="${user}" method="post">
-                        <button type="submit" class="btn btn-primary" onClick="return confirm('Are you sure?')">Delete</button>
+                        <button type="submit" class="btn btn-danger" onClick="return confirm('Are you sure?')">Delete</button>
                     </a>
                 </td>
             </tr>

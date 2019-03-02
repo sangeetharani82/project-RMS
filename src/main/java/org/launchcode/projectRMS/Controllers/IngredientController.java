@@ -72,4 +72,9 @@ public class IngredientController {
         return "ingredient/message";
         //return "redirect:/ingredient";
     }
+//
+//    @RequestMapping(value = "/listPageable", method = RequestMethod.GET)
+//    Page<Ingredient> ingredientPageable(Pageable pageable) {
+//        return ingredientDao.findAll(pageable);
+//    }
 }

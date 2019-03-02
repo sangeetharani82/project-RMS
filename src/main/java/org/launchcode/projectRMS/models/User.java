@@ -7,9 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class User{
@@ -39,7 +37,6 @@ public class User{
     @NotNull(message = "Password don't match")
     private String verify;
 
-//    private Set<Recipe> recipes = new HashSet<>();
 
     public User(String firstName, String lastName, String email, String password, String verify) {
         this();
@@ -97,11 +94,5 @@ public class User{
         this.verify = verify;
     }
 
-//    public Set<Recipe> getRecipes() {
-//        return recipes;
-//    }
-//
-//    public void setRecipes(Set<Recipe> recipes) {
-//        this.recipes = recipes;
-//    }
 }
+
