@@ -1,5 +1,6 @@
 package org.launchcode.projectRMS.Controllers;
 
+import org.launchcode.projectRMS.Comparators.RecipeComparator;
 import org.launchcode.projectRMS.models.Category;
 import org.launchcode.projectRMS.models.data.CategoryDao;
 import org.launchcode.projectRMS.models.data.RecipeDao;

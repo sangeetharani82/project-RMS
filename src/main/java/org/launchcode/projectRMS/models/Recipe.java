@@ -41,11 +41,11 @@ public class Recipe {
 
     @OneToMany
     @JoinColumn(name = "recipe_id")
-    private List<RateComment> rateCommentList = new ArrayList<>();
+    private List<RateComment> rateCommentList;
 
     @OneToMany
     @JoinColumn(name = "recipe_id")
-    private List<AddIngredientsToRecipe> addIngredientsToRecipes = new ArrayList<>();
+    private List<IngredientAndQuantity> ingredientAndQuantityList;
 
     public Recipe(String recipeName, int servingSize, String prepTime, String cookTime, String direction) {
         this();
@@ -123,15 +123,15 @@ public class Recipe {
         return rateCommentList;
     }
 
-    public List<AddIngredientsToRecipe> getAddIngredientsToRecipes() {
-        return addIngredientsToRecipes;
+    public List<IngredientAndQuantity> getIngredientAndQuantityList() {
+        return ingredientAndQuantityList;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public void setIngredientAndQuantityList(IngredientAndQuantity item) {
+        ingredientAndQuantityList.add(item);
+    }
+
+    public void setRateCommentList(RateComment rating) {
+        rateCommentList.add(rating);
+    }
 }

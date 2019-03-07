@@ -1,6 +1,7 @@
 package org.launchcode.projectRMS.Controllers;
 
-import org.launchcode.projectRMS.models.AddIngredientsToRecipe;
+import org.launchcode.projectRMS.Comparators.RecipeComparator;
+import org.launchcode.projectRMS.models.IngredientAndQuantity;
 import org.launchcode.projectRMS.models.Recipe;
 import org.launchcode.projectRMS.models.data.CategoryDao;
 import org.launchcode.projectRMS.models.data.RecipeDao;
@@ -30,8 +31,8 @@ public class SearchController {
 
     @RequestMapping(value = "results")
     public String results(Model model, @RequestParam String searchTerm){
+        RecipeComparator recipeComparator = new RecipeComparator();
         int count = 0;
-        //int n = 0;
         ArrayList<Recipe> lists = new ArrayList<>();
         ArrayList<Recipe> newLists = new ArrayList<>();
         for (Recipe recipe : recipeDao.findAll()) {
@@ -46,11 +47,12 @@ public class SearchController {
                         newLists.add(list);
                     }
                 }
+                newLists.sort(recipeComparator);
                 model.addAttribute("recipes", newLists);
                 count = count + 1;
                 model.addAttribute("title", count + " item(s) found");
             }else{
-                for (AddIngredientsToRecipe i : recipe.getAddIngredientsToRecipes()){
+                for (IngredientAndQuantity i : recipe.getIngredientAndQuantityList()){
                     if (i.getIngredient().getIngredientName().toLowerCase().contains(searchTerm.toLowerCase())){
                         int id = recipe.getId();
                         Recipe recipe1 = recipeDao.findOne(id);
@@ -60,6 +62,7 @@ public class SearchController {
                                 newLists.add(list);
                             }
                         }
+                        newLists.sort(recipeComparator);
                         model.addAttribute("recipes", newLists);
                         count = count + 1;
                         model.addAttribute("title", count + " item(s) found");

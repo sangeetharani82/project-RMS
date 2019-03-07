@@ -1,8 +1,11 @@
 package org.launchcode.projectRMS.Controllers;
 
 
+import org.launchcode.projectRMS.Comparators.RecipeComparator;
 import org.launchcode.projectRMS.models.*;
 import org.launchcode.projectRMS.models.data.*;
+import org.launchcode.projectRMS.models.forms.AddIngredientAndQuantityToRecipeForm;
+import org.launchcode.projectRMS.models.forms.AddRateCommentToRecipeForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,6 +28,15 @@ public class RecipeController {
 
     @Autowired
     CategoryDao categoryDao;
+
+    @Autowired
+    IngredientDao ingredientDao;
+
+    @Autowired
+    IngredientAndQuantityDao ingredientAndQuantityDao;
+
+    @Autowired
+    RateCommentDao rateCommentDao;
 
         // Request path: /recipe
     @RequestMapping(value = "")
@@ -61,10 +74,81 @@ public class RecipeController {
         recipeDao.save(newRecipe);
 
         model.addAttribute("message", "Recipe added successfully!");
-        return "addIngredients/view";
-        // return "redirect:single/"+newRecipe.getId();
+        model.addAttribute("title", newRecipe.getRecipeName());
+        return "redirect:view/" + newRecipe.getId();
     }
 
+    @RequestMapping(value="view/{id}", method = RequestMethod.GET)
+    public String view(@PathVariable int id, Model model){
+        Recipe recipe = recipeDao.findOne(id);
+        model.addAttribute("title", recipe.getRecipeName());
+        model.addAttribute("recipe", recipe);
+        model.addAttribute("message", "Added successfully!");
+        return "recipe/view";
+    }
+
+    @RequestMapping(value = "add-items/{recipeId}", method = RequestMethod.GET)
+    public String displayAddIngredientAndQuantityForm(@PathVariable int recipeId, Model model){
+        Recipe recipe = recipeDao.findOne(recipeId);
+        AddIngredientAndQuantityToRecipeForm form = new AddIngredientAndQuantityToRecipeForm(recipe, ingredientDao.findAll());
+        model.addAttribute("title", "Add Ingredient and Quantity to "+recipe.getRecipeName());
+        model.addAttribute("form", form);
+        model.addAttribute("ingredients", ingredientDao.findAll());
+        return "recipe/add-items";
+    }
+
+    @RequestMapping(value = "add-items", method = RequestMethod.POST)
+    public String processAddIngredientAndQuantityForm(Model model, @ModelAttribute @Valid AddIngredientAndQuantityToRecipeForm form,
+                                                      Errors errors){
+        if (errors.hasErrors()){
+            model.addAttribute("form", form);
+            return "recipe/add-items";
+        }
+
+        Recipe recipe = recipeDao.findOne(form.getRecipeId());
+        Ingredient theIngredient = ingredientDao.findOne(form.getIngredientId());
+        String quantity = form.getAmount();
+        IngredientAndQuantity ingredientAndQuantity = new IngredientAndQuantity(recipe, theIngredient, quantity);
+        recipe.setIngredientAndQuantityList(ingredientAndQuantity);
+        ingredientAndQuantityDao.save(ingredientAndQuantity);
+        recipeDao.save(recipe);
+        return "redirect:view/"+ recipe.getId();
+    }
+
+    @RequestMapping(value = "add-rating/{recipeId}", method = RequestMethod.GET)
+    public String displayAddRatingForm(@PathVariable int recipeId, Model model){
+        String rating = "";
+        String comment = "";
+        Recipe recipe = recipeDao.findOne(recipeId);
+        AddRateCommentToRecipeForm rateForm = new AddRateCommentToRecipeForm(recipe, rating, comment);
+        model.addAttribute("title", "Rate and Comment "+recipe.getRecipeName());
+        model.addAttribute("form", rateForm);
+        return "recipe/add-rating";
+    }
+
+    @RequestMapping(value = "add-rating", method = RequestMethod.POST)
+    public String processAddRatingForm(Model model, @ModelAttribute @Valid AddRateCommentToRecipeForm rateForm,
+                                                      Errors errors){
+        if (errors.hasErrors()){
+            model.addAttribute("form", rateForm);
+            return "recipe/add-rating";
+        }
+        Recipe recipe = recipeDao.findOne(rateForm.getRecipeId());
+        RateComment rateComment = new RateComment(recipe, rateForm.getRating(), rateForm.getComment());
+        recipe.setRateCommentList(rateComment);
+        rateCommentDao.save(rateComment);
+        recipeDao.save(recipe);
+        return "redirect:view-rating/"+ recipe.getId();
+    }
+
+    @RequestMapping(value="view-rating/{id}", method = RequestMethod.GET)
+    public String viewRating(@PathVariable int id, Model model){
+        Recipe recipe = recipeDao.findOne(id);
+        model.addAttribute("title", recipe.getRecipeName());
+        model.addAttribute("recipe", recipe);
+        model.addAttribute("message", "Added successfully!");
+        return "recipe/view-rating";
+    }
     //view single recipe
     @RequestMapping(value="single/{id}", method = RequestMethod.GET)
     public String singleRecipe(@PathVariable int id, Model model){
@@ -73,9 +157,8 @@ public class RecipeController {
         model.addAttribute("course", recipe.getCourse());
         model.addAttribute("category", recipe.getCategory());
         model.addAttribute("recipe", recipe);
-        List<AddIngredientsToRecipe> lists = recipe.getAddIngredientsToRecipes();
         model.addAttribute("title", recipe.getRecipeName());
-        model.addAttribute("ingredientLists", lists);
+        model.addAttribute("ingredientsAndQuantities", recipe.getIngredientAndQuantityList());
         return "recipe/single";
     }
 
@@ -120,12 +203,11 @@ public class RecipeController {
         recipeDao.save(edited);
 
         model.addAttribute("message", "Successfully edited!");
-
-        List<AddIngredientsToRecipe> lists = edited.getAddIngredientsToRecipes();
+        model.addAttribute("ingredientsAndQuantities", edited.getIngredientAndQuantityList());
         model.addAttribute("title", "Ingredients needed for " + edited.getRecipeName());
-        model.addAttribute("ingredientLists", lists);
+        model.addAttribute("recipe", edited);
 
-        return "addIngredients/viewWithMsg";
+        return "recipe/view";
     }
 
     //recipes in a course
