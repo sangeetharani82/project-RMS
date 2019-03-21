@@ -165,6 +165,9 @@ public class RecipeController {
     // delete each recipe
     @RequestMapping(value = "delete/{recipeId}")
     public String delete(@PathVariable int recipeId, Model model){
+        Recipe recipe = recipeDao.findOne(recipeId);
+        rateCommentDao.delete(recipe.getRateCommentList());
+        ingredientAndQuantityDao.delete(recipe.getIngredientAndQuantityList());
         recipeDao.delete(recipeId);
         model.addAttribute("message", "Recipe deleted successfully!");
         return "recipe/message";
